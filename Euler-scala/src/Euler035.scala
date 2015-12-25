@@ -95,6 +95,6 @@ object Sieve {
      println("Number of circular primes under " + n + " = " + circPrimesUnder(n))
      val stop = System.nanoTime()
      println("Stopped at " + stop/1e6+"ms")
-     println("Elapsed time =  "+(System.nanoTime-start)/1e6+"ms")
+     println("Elapsed time is "+(System.nanoTime-start)/1e6+"ms")
    }
 }
