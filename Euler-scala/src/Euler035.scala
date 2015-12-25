@@ -91,7 +91,7 @@ object Sieve {
    def main(args: Array[String]): Unit = {
      val start = System.nanoTime
      println("Started at " + start/1e6+"ms")
-     val n = 1000000
+     val n = 100000
      println("Number of circular primes under " + n + " = " + circPrimesUnder(n))
      val stop = System.nanoTime()
      println("Stopped at " + stop/1e6+"ms")
