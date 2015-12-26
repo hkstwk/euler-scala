@@ -76,25 +76,48 @@ object Sieve {
      return intResult 
    }
    
-   def circPrimesUnder(n : Int) : Int = {
+   def circPrimesUnder(n : Int) : List[List[Int]] = {
      val allPrimesUnderN = primes2(ints(2).take(n-1).toList)
      val primeRotations = allPrimesUnderN.map{ x=> rotations(x) }    
      val primeRotationsListWithoutEvenNumbers = primeRotations.filter { x => !hasEvenNumber(x) }
      val primeRotatiosThatAreCircularPrimesList = primeRotationsListWithoutEvenNumbers.filter { x => isCircularPrime(x) } 
-     primeRotatiosThatAreCircularPrimesList.foreach { x => println(x) }
-     println("----")
-     
-     primeRotatiosThatAreCircularPrimesList.length
+     primeRotatiosThatAreCircularPrimesList
 
    }
    
-   def main(args: Array[String]): Unit = {
+   def getCircularPrimes1(n: Int) {
+     println("\n----")
      val start = System.nanoTime
      println("Started at " + start/1e6+"ms")
-     val n = 100000
-     println("Number of circular primes under " + n + " = " + circPrimesUnder(n))
+     
+     val result = circPrimesUnder(n)
+     result.foreach { x => println(x) }
+     println("Number of circular primes under " + n + " = " + result.length)
+     
      val stop = System.nanoTime()
      println("Stopped at " + stop/1e6+"ms")
      println("Elapsed time = "+(System.nanoTime-start)/1e6+"ms")
+     println("----\n")
+   }
+   
+   def getCircularPrimes2(n: Int) {
+     println("\n----")
+     val start = System.nanoTime
+     println("Started at " + start/1e6+"ms")
+     
+     val result = (2 to n).filter(x => isPrime(x)).map { x => rotations(x) }.filter(isCircularPrime(_))
+     result.foreach { x => println(x) }
+     println("Number of circular primes under " + n  + " = "  + result.length)
+     
+     val stop = System.nanoTime()
+     println("Stopped at " + stop/1e6+"ms")
+     println("Elapsed time = "+(System.nanoTime-start)/1e6+"ms")
+     println("----\n")
+   }
+   
+   def main(args: Array[String]): Unit = {
+     val n = 100000
+     getCircularPrimes1(n)
+     getCircularPrimes2(n)
    }
 }
