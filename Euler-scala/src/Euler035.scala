@@ -1,30 +1,5 @@
-import scala.Stream
-import scala.annotation.tailrec
+object Euler035 {
 
-object Sieve {
- 
-   def ints(n: Int): Stream[Int] = {
-      require(n > 1)
-      Stream.cons(n, ints(n+1))
-   }
- 
-   def primes(nums: Stream[Int]): Stream[Int] = {
-     Stream.cons(nums.head, primes(nums.tail filter (x => x % nums.head != 0)))
-   }
-
-   def primes2(nums : List[Int]): List[Int] = {
-     @tailrec
-     def innerPrimes(numsInner: List[Int], accum: List[Int]) : List[Int] = {
-       if (numsInner.length == 0) return accum.reverse
-       else {
-           val primes = numsInner.tail.filter(x => x % numsInner.head != 0)
-           val acc : List[Int] = numsInner.head :: accum
-           innerPrimes(primes, acc)
-       }
-     }
-     innerPrimes(nums, List())
-   }
-   
    def isPrime(n: Int) : Boolean = {
      var result = true
      for (i: Int <- 2 to Math.sqrt(n).intValue()){
@@ -33,15 +8,7 @@ object Sieve {
      }
      return result
    } 
-   
-   def split(n: Int) : List[Int] = if (n == 0) List(0) else { 
-      (Stream.iterate(n)(_/10)takeWhile(_!=0)map(_%10)toList) reverse
-   }
-   
-   def perm(l: List[Int]) : List[List[Int]] = {
-     l.permutations.toList
-   }
-   
+
    def rotations(num: Int) = {
      def rotationHelper(str: String, times: Int): List[String] = {
        if (times == 1) List(str)
@@ -51,61 +18,18 @@ object Sieve {
      rotationHelper(numString, numString.length).map(_.toInt)
    }
    
-   def perm2(l: List[List[Int]]) : List[Int] = {
-     l.map { x => convertListToInt(x) }
-   }
-   
    def isCircularPrime(l : List[Int]) : Boolean = {
      val primesOrNot = l.filter { x =>isPrime(x) }
      if ( primesOrNot.length < l.length) false
      else true
    }
-   
-   def hasEvenNumber(l: List[Int]): Boolean = {
-     val evens = l.filter(a => a % 2 == 0) 
-     if (evens.length == 0) false
-     else if (l.length>1) true
-     else false
-   }
-   
-   def convertListToInt(l : List[Int]) : Int = {
-     val lReverse = l.reverse
-     var intResult = 0
-     var factor = 1
-     lReverse.foreach{ x => intResult += x*factor; factor *=10}
-     return intResult 
-   }
-   
-   def circPrimesUnder(n : Int) : List[List[Int]] = {
-     val allPrimesUnderN = primes2(ints(2).take(n-1).toList)
-     val primeRotations = allPrimesUnderN.map{ x=> rotations(x) }    
-     val primeRotationsListWithoutEvenNumbers = primeRotations.filter { x => !hasEvenNumber(x) }
-     val primeRotatiosThatAreCircularPrimesList = primeRotationsListWithoutEvenNumbers.filter { x => isCircularPrime(x) } 
-     primeRotatiosThatAreCircularPrimesList
 
-   }
-   
-   def getCircularPrimes1(n: Int) {
+   def getCircularPrimes(n: Int) {
      println("\n----")
      val start = System.nanoTime
      println("Started at " + start/1e6+"ms")
      
-     val result = circPrimesUnder(n)
-     result.foreach { x => println(x) }
-     println("Number of circular primes under " + n + " = " + result.length)
-     
-     val stop = System.nanoTime()
-     println("Stopped at " + stop/1e6+"ms")
-     println("Elapsed time = "+(System.nanoTime-start)/1e6+"ms")
-     println("----\n")
-   }
-   
-   def getCircularPrimes2(n: Int) {
-     println("\n----")
-     val start = System.nanoTime
-     println("Started at " + start/1e6+"ms")
-     
-     val result = (2 to n).filter(x => isPrime(x)).map { x => rotations(x) }.filter(isCircularPrime(_))
+     val result = (2 to n).filter(isPrime(_)).map(rotations(_)).filter(isCircularPrime(_))
      result.foreach { x => println(x) }
      println("Number of circular primes under " + n  + " = "  + result.length)
      
@@ -116,8 +40,7 @@ object Sieve {
    }
    
    def main(args: Array[String]): Unit = {
-     val n = 100000
-     getCircularPrimes1(n)
-     getCircularPrimes2(n)
+     val n = 1000000
+     getCircularPrimes(n)
    }
 }
