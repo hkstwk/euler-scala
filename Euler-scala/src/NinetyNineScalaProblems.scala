@@ -37,6 +37,11 @@ object NinetyNineScalaProblems {
   
   def isPalindrome[A](ls: List[A]) : Boolean = ls == ls.reverse 
   
+  def flatten(ls: List[Any]) : List[Any] = ls flatMap {
+    case ms : List[_] => flatten(ms)
+    case e => List(e)
+  }
+  
   def main(args: Array[String]): Unit = {
     //p01 Find the last element of a list.
     println(ls1.last)
@@ -73,5 +78,12 @@ object NinetyNineScalaProblems {
     println(isPalindrome(List(1,2,3,2,1)))
     println(isPalindrome(List(1,2,3,3,1)))
     println(isPalindrome(List("hello","world","hello")))
+    
+    //P07 Flatten a nested list structure.
+    // <scala> flatten(List(List(1, 1), 2, List(3, List(5, 8))))
+    // res0: List[Any] = List(1, 1, 2, 3, 5, 8)
+    val ls4 = List(List(1, 1), 2, List(3, List(5, 8)))
+    println(flatten(ls4))
+    
   }
 }
