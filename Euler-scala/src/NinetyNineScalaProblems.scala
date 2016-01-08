@@ -43,6 +43,18 @@ object NinetyNineScalaProblems {
   }
   
   def main(args: Array[String]): Unit = {
+    //p00 find the sum of a list
+    println(ls1.sum)
+    val r = ls1.foldRight(0) ((r,c) => r+c)
+    println(r)
+    val l = ls1.foldLeft(0) (_+_)
+    println(l)
+    println(ls1.product)
+    val m = ls1.foldRight(1) ((r,c) => r*c)
+    println(m)
+    val n = ls1.foldLeft(1) (_*_)
+    println(n)
+    
     //p01 Find the last element of a list.
     println(ls1.last)
     println(findLast(ls1))
@@ -84,6 +96,5 @@ object NinetyNineScalaProblems {
     // res0: List[Any] = List(1, 1, 2, 3, 5, 8)
     val ls4 = List(List(1, 1), 2, List(3, List(5, 8)))
     println(flatten(ls4))
-    
   }
 }
