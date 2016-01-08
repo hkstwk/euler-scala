@@ -4,7 +4,7 @@ package nl.kolvoort.scala.s99
 
 import java.util.NoSuchElementException
 
-object NinetyNineScalaProblems {
+object S99 {
   val ls1 = List(1,1,2,3,885,8)
   val ls2 = List("Hello", "World")
   val ls3 = List("One item List","")
