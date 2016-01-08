@@ -1,5 +1,7 @@
 
 
+package nl.kolvoort.scala.s99
+
 import java.util.NoSuchElementException
 
 object NinetyNineScalaProblems {
