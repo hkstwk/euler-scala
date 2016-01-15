@@ -12,10 +12,20 @@ object S99_P17_SplitAfterNElements {
   def splitAfterN[A](n: Int, ls: List[A]) : (List[A], List [A]) = ls span { e => (ls.indexOf(e)) < n  }
   
   def splitRecursive[A](n: Int, ls: List[A]) : (List[A], List[A]) = (n, ls) match {
-    case (0, _) => (Nil, ls)
-    case (_, Nil) => (Nil, Nil)
+    case (0, _) => {
+      println((Nil, ls))
+      (Nil, ls)
+    }
+    case (_, Nil) => {
+      println((Nil, Nil))
+      (Nil, Nil)
+    }
     case (n, h :: t) => {
+      print(n + "\t")
+      println(h :: t)
       val (pre, post) = splitRecursive(n-1, t)
+      print(h :: pre)
+      println(" , " + post)
       ( h :: pre, post) 
     }
   }
@@ -24,8 +34,6 @@ object S99_P17_SplitAfterNElements {
     println(splitAfterN(12,ls))
     println(ls.splitAt(11))
     
-    println(splitRecursive(0, ls))
-    println(splitRecursive(1, ls))
     println(splitRecursive(5, ls))
   }
 }
