@@ -31,9 +31,8 @@ object S99_P17_SplitAfterNElements {
   }
   
   def main(args: Array[String]): Unit = {
-    println(splitAfterN(12,ls))
-    println(ls.splitAt(11))
-    
+    println(splitAfterN(5,ls))
+    println(ls.splitAt(5))
     println(splitRecursive(5, ls))
   }
 }
